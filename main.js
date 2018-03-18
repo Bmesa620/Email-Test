@@ -10,6 +10,23 @@
 
 function render() {
   // TODO 1: Your Code Here
+var allemails = [];
+var nextcursor = 0;
+
+//all emails
+fetchEmailsFromDatabase(nextcursor, grabsection);
+function grabsection(arg){
+    //once Finished fetching render
+    nextcursor = arg["next"];
+        arg.result.forEach(function(element){
+            if(!allemails.includes(element)){
+                allemails.push(element);
+            }
+        });
+        return nextcursor, fetchEmailsFromDatabase(nextcursor, grabsection);
+    }
+//all emails
+
 }
 
 /*
