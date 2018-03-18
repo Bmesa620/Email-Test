@@ -18,7 +18,7 @@ fetchEmailsFromDatabase(nextcursor, grabsection);
 function grabsection(arg){
     if(allemails.length>= 7){
       //fetch all emails page by page until end length 7
-      return renderEmails(getFilteredEmails(allemails));
+      return getFilteredEmails(allemails);
     }
     //once Finished fetching render
     nextcursor = arg["next"];
@@ -47,6 +47,29 @@ function grabsection(arg){
 
 function getFilteredEmails(allEmails = [], searchInputs = getSearchInputs()) {
   // TODO 2: Your Code Here
+  //returning statements of true should the text of the search inputs be included in the text of each part of the email's text
+  function isMatch(obj) {
+    if(obj.includes(searchInputs[0])){
+      return true;
+    }
+    if(obj.includes(searchInputs[1])){
+      return true;
+    }
+    if(obj.includes(searchInputs[2])){
+      return true;
+    }
+}
+//match hard-coded to return true statements if the function isMatch returns a valid includes statement for 
+// each of the values in each key of the email object
+function match(email) {
+  if (isMatch(email.author) || isMatch(email.subject) || isMatch(email.body)) {
+    return true;
+  } 
+  return false; 
+}
+//filter to return an array of all the resulting objects (emails)
+var filtered = allEmails.filter(match);
+return filtered;
 }
 
 render();
