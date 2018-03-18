@@ -16,6 +16,10 @@ var nextcursor = 0;
 //all emails
 fetchEmailsFromDatabase(nextcursor, grabsection);
 function grabsection(arg){
+    if(allemails.length>= 7){
+      //fetch all emails page by page until end length 7
+      return renderEmails(getFilteredEmails(allemails));
+    }
     //once Finished fetching render
     nextcursor = arg["next"];
         arg.result.forEach(function(element){
